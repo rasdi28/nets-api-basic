@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { ApiCreatedResponse, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
+import { ApiCreatedResponse, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { response } from 'express';
 import { identity } from 'rxjs';
 import { Mmahasiswa } from '../mahasiswa.entity';
 import { MahasiswaService } from './mahasiswa.service';
@@ -14,6 +15,16 @@ export class MahasiswaController {
     index():Promise<Mmahasiswa[]> {
         return this.mahasiswaService.findAll();
     }
+
+    @Get('getall')
+    async test(){
+        const dta1 = this.mahasiswaService.findAll();
+        return dta1;
+    }
+
+    // @Get()
+    // @ApiResponse({status:200, description:'return a list mahasisaw'})
+    // async fetchAll(@Res() respon)
     
     @Post()
     async create(@Body() objmahasiswa:Mmahasiswa):Promise<any>{

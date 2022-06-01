@@ -17,4 +17,8 @@ export class Address {
     country:string;
 
 
+    @OneToOne(()=> Muser, (muser:Muser)=>muser.address)
+    public muser:Muser;
+
+
 }

@@ -1,5 +1,6 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Address } from "./address.entity";
+import { Post } from "./post.entity";
 
 
 @Entity()
@@ -16,14 +17,10 @@ export class Muser{
     @Column()
     password :string;
 
-    @OneToOne(()=>Address, {
-        eager:true,
-        cascade:true
-    })
-    @JoinColumn()
-    public address:Address;
-    
 
+   @OneToOne(()=>Address)
+    @JoinColumn({name:"addressid"})
+    address:Address;
 
 
 
