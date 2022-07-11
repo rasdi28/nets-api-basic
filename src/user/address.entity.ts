@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Muser } from "./user.entity";
 
@@ -8,12 +9,15 @@ export class Address {
     id:number;
 
     @Column()
+    @ApiProperty()
     street:string;
 
     @Column()
+    @ApiProperty()
     city:string;
 
     @Column()
+    @ApiProperty()
     country:string;
 
 

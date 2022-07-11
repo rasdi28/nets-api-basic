@@ -11,7 +11,11 @@ import { Mmahasiswa } from './mahasiswa/mahasiswa.entity';
 import { UserModule } from './user/user.module';
 import { Muser } from './user/user.entity';
 import { Address } from './user/address.entity';
-
+import { ActivityModule } from './activity/activity.module';
+import { Mactivity } from './activity/activity.entity';
+import { TactvityDetail } from './activity/activitydetail.entity';
+import { MdosenModule } from './mdosen/mdosen.module';
+import { Mdosen } from './mdosen/mdosen.entity';
 
 
 
@@ -24,13 +28,12 @@ import { Address } from './user/address.entity';
       username:'postgres',
       password:'postgress',
       database: 'basic_nest',
-      entities:[Employee, Contact,Mmahasiswa,Muser,Address],
+      entities:[Employee, Contact,Mmahasiswa,Muser,Address,Mactivity,TactvityDetail,Mdosen],
       migrations:['dist/migrations/*{.ts,.js}'],
       migrationsTableName: 'migrations_typeorm',
       migrationsRun:true
     }), 
-    EmployeeModule, ContactsModule, MahasiswaModule, UserModule,
-  ],
+    EmployeeModule, ContactsModule, MahasiswaModule, UserModule, ActivityModule, MdosenModule],
   controllers: [AppController],
   providers: [AppService],
 })

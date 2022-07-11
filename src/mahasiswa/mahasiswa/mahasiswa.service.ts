@@ -5,13 +5,57 @@ import { Mmahasiswa } from '../mahasiswa.entity';
 
 @Injectable()
 export class MahasiswaService {
+
     constructor(
         @InjectRepository(Mmahasiswa)
         private mahasiswaRepository:Repository<Mmahasiswa>,
     ){}
 
+   mahasiswa = [
+        {
+            id:1,
+            name:'rasdi',
+            npm : '15120',
+            fakultas:'FASILKOM'
+        },
+        {
+            id:2,
+            name:'bayu',
+            npm :'15121',
+            fakultas :'FAI'
+        },
+        {
+            id:3,
+            name:'rohman',
+            npm :'15121',
+            fakultas :'FAI'
+        }
+    ]
+
+
+    getdatamahasiswa(){
+        return this.mahasiswa;
+    }
+
+    getmahasiswabyid(id:number){
+        return this.mahasiswa.find((mahasiswa)=>
+        mahasiswa.id===id);
+
+    }
+
+
+    //database    
+
     async findAll():Promise<Mmahasiswa[]> {
         return await this.mahasiswaRepository.find();
+    }
+
+    async findByid(id:number):Promise<Mmahasiswa[]>{
+        return await this.mahasiswaRepository.find({
+            where:{
+                mmahasiswapk:id
+            }
+        });
     }
 
     async create(mahasiswa:Mmahasiswa):Promise<Mmahasiswa> {

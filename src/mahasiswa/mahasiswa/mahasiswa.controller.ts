@@ -1,7 +1,10 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Post, Put, Req, Res } from '@nestjs/common';
 import { ApiCreatedResponse, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { response } from 'express';
+import { Response} from 'express';
+import { get } from 'http';
 import { identity } from 'rxjs';
+import { json } from 'stream/consumers';
 import { Mmahasiswa } from '../mahasiswa.entity';
 import { MahasiswaService } from './mahasiswa.service';
 
@@ -22,9 +25,7 @@ export class MahasiswaController {
         return dta1;
     }
 
-    // @Get()
-    // @ApiResponse({status:200, description:'return a list mahasisaw'})
-    // async fetchAll(@Res() respon)
+  
     
     @Post()
     async create(@Body() objmahasiswa:Mmahasiswa):Promise<any>{
@@ -45,6 +46,43 @@ export class MahasiswaController {
     async delete(@Param('id') mmahasiswapk): Promise<any>{
         return this.mahasiswaService.delete(mmahasiswapk);
     }
+
+    @Get('datamahasiswa')
+    getdatamahasiswa(@Res() res:Response){
+        const data= this.mahasiswaService.getdatamahasiswa();
+        if(data){
+            res.status(HttpStatus.OK).json({
+                code:200,
+                message:'success',
+                data:data
+            })
+        }
+    }
+
+    @Get('byid/:id')
+    getdatamahasiswabyid(
+        @Param('id',ParseIntPipe) id:number,
+        @Req() req:Request,
+        @Res() res:Response,
+    ){
+        const mahasiswa = this.mahasiswaService.getmahasiswabyid(id);
+        if(mahasiswa) {
+            res.send(mahasiswa);
+        }else {
+            res.status(400).send({message:'Mahasiswa not found'});
+        }
+    }
+
+    @Get('findby/:id')
+    async getdatabyid(
+        @Param('id', ParseIntPipe) id:number,
+        @Req() req:Request,
+        @Res() res:Response
+    ){
+        return this.mahasiswaService.findByid(id);
+    }
+
+
 
 
 }

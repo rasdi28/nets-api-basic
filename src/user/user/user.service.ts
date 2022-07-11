@@ -18,10 +18,7 @@ export class UserService {
         }});
    }
 
-   @Get()
-   find():string {
-       return 'Hello Rasdi';
-   }
+   
 
 
 
